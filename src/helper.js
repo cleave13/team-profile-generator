@@ -1,4 +1,5 @@
-const helper = {
+const role = 'Manager';
+const prompts = {
     employeePrompts: [
         {
             type: 'input',
@@ -47,5 +48,4 @@ const helper = {
     ]
 }
 
-module.exports.role = role;
-module.exports = helper;
+module.exports = { prompts, role };

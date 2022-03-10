@@ -10,24 +10,25 @@ const Intern = require('./lib/Intern');
 
 // import inquirer prompts from helper.js file
 const helper = require('./src/helper')
-const role = 'Manager';
+let role = helper.role;
+console.log(role);
 
 // FUNCTIONS
 function setPrompts(role){
     
-    const prompts = [];
+    let prompts = [];
     console.log(role);
 
     if(role === 'Manager') {
-        prompts = helper.employeePrompts.concat(helper.managerPrompts, helper.continuePrompts);
+        prompts = helper.prompts.employeePrompts.concat(helper.prompts.managerPrompts, helper.prompts.continuePrompts);
     } 
     
     else if (role === 'Engineer') {
-        prompts = helper.employeePrompts.concat(helper.engineerPrompts, helper.continuePrompts);
+        prompts = helper.prompts.employeePrompts.concat(helper.prompts.engineerPrompts, helper.prompts.continuePrompts);
     } 
     
     else if (role === 'Intern') {
-        prompts = helper.employeePrompts.concat(helper.internPrompts, helper.continuePrompts);
+        prompts = helper.prompts.employeePrompts.concat(helper.prompts.internPrompts, helper.prompts.continuePrompts);
     }
 
     console.log(prompts);
@@ -39,6 +40,10 @@ function runPrompts() {
         .prompt(setPrompts(role))
         .then((data) => {
             console.log(data);
+            if(!data.type.includes('finish')) {
+                role = data.type;
+                runPrompts(role);
+            }
             // const filename = 'index.html';
             // const {} = data;
 
