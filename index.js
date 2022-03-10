@@ -81,7 +81,6 @@ function runPrompts() {
                     break;
             };
             team.push(member);
-            console.log(team);
 
             if(!type.includes('finish')) {
                 role = type;

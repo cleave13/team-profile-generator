@@ -18,24 +18,8 @@ function managerCard(obj) {
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Employee ID: ${obj.empId}</li>
-            <li class="list-group-item">Email: ${obj.email}</li>
+            <li class="list-group-item">Email: ${obj.email}Email: <a href = "mailto: ${obj.email}">${obj.email}</a></li>
             <li class="list-group-item">Office Number: ${obj.officeNum}</li>
-        </ul>
-    </div>`
-
-    return content;
-}
-
-function internCard(obj) {
-    const content = 
-    `<div class="card bg-info text-white m-5" style="width: 18rem;">
-        <div class="card-header">
-            ${obj.role + ': ' + obj.fullName}
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Employee ID: ${obj.empId}</li>
-            <li class="list-group-item">Email: ${obj.email}</li>
-            <li class="list-group-item">School: ${obj.school}</li>
         </ul>
     </div>`
 
@@ -50,8 +34,24 @@ function engineerCard(obj) {
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Employee ID: ${obj.empId}</li>
-            <li class="list-group-item">Email: ${obj.email}</li>
-            <li class="list-group-item">Github: ${obj.github}</li>
+            <li class="list-group-item">Email: <a href = "mailto: ${obj.email}">${obj.email}</a></li>
+            <li class="list-group-item">Github: <a href="https://github.com/${obj.github}" target="_blank">${obj.github}</a></li>
+        </ul>
+    </div>`
+
+    return content;
+}
+
+function internCard(obj) {
+    const content = 
+    `<div class="card bg-info m-5" style="width: 18rem;">
+        <div class="card-header">
+            ${obj.role + ': ' + obj.fullName}
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Employee ID: ${obj.empId}</li>
+            <li class="list-group-item">Email: <a href = "mailto: ${obj.email}">${obj.email}</a></li>
+            <li class="list-group-item">School: ${obj.school}</li>
         </ul>
     </div>`
 
