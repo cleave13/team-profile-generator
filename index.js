@@ -8,51 +8,93 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-// import inquirer prompts from helper.js file
-const helper = require('./src/helper')
-let role = helper.role;
-console.log(role);
+// import inquirer prompts from prompts.js file
+const promptFile = require('./src/prompts')
+const template = require('./src/template')
 
-// FUNCTIONS
+// define global variables used by the application
+let role = promptFile.role;
+const { employee, manager, engineer, intern, cont } = promptFile.prompts
+const team = [];
+
+// FUNCTIONS DECLARATIONS
 function setPrompts(role){
     
     let prompts = [];
-    console.log(role);
 
-    if(role === 'Manager') {
-        prompts = helper.prompts.employeePrompts.concat(helper.prompts.managerPrompts, helper.prompts.continuePrompts);
-    } 
+    switch (role) {
+        case 'Manager':
+            prompts = employee.concat(manager, cont);
+            break;
+
+        case 'Engineer':
+            prompts = employee.concat(engineer, cont);
+            break;
+        
+        case 'Intern':
+            prompts = employee.concat(intern, cont);
+            break;
     
-    else if (role === 'Engineer') {
-        prompts = helper.prompts.employeePrompts.concat(helper.prompts.engineerPrompts, helper.prompts.continuePrompts);
-    } 
-    
-    else if (role === 'Intern') {
-        prompts = helper.prompts.employeePrompts.concat(helper.prompts.internPrompts, helper.prompts.continuePrompts);
+        default:
+            break;
     }
 
-    console.log(prompts);
     return prompts;
+}
+
+function buildDocument(team) {
+    let content = template.docStart;
+    for (let i = 0; i < team.length; i++) {
+        const member = team[i];
+        if(member instanceof Manager) {
+            content = content + template.managerCard(member)
+        } else if(member instanceof Engineer) {
+            content = content + template.engineerCard(member)
+        } else if(member instanceof Intern) {
+            content = content + template.internCard(member)
+        }
+    }
+    content = content + template.docEnd;
+
+    return content
 }
 
 function runPrompts() {
     inquirer
         .prompt(setPrompts(role))
         .then((data) => {
-            console.log(data);
-            if(!data.type.includes('finish')) {
-                role = data.type;
+            const { memberName, id, email, office, github, school, type } = data
+            switch (role) {
+                case 'Manager':
+                    member = new Manager(memberName, id, email, office);
+                    break;
+        
+                case 'Engineer':
+                    member = new Engineer(memberName, id, email, github);
+                    break;
+                
+                case 'Intern':
+                    member = new Intern(memberName, id, email, school);
+                    break;
+            
+                default:
+                    break;
+            };
+            team.push(member);
+            console.log(team);
+
+            if(!type.includes('finish')) {
+                role = type;
                 runPrompts(role);
+            } else {
+                const html = buildDocument(team);
+                const filename = './dist/index.html';
+
+                fs.writeFile(filename, html, (err) =>
+                    err ? console.log(err) : console.log('Success!')
+                );
             }
-            // const filename = 'index.html';
-            // const {} = data;
-
-            // let licensePath = ''
-            // const content = ``
-
-            // fs.writeFile(filename, content, (err) =>
-            //     err ? console.log(err) : console.log('Success!')
-            // );
+            
         });
 }
 

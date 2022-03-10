@@ -1,44 +1,44 @@
 const role = 'Manager';
 const prompts = {
-    employeePrompts: [
+    employee: [
         {
             type: 'input',
-            message: 'Enter the ' + role + '\'s name:',
-            name: 'roleName',
+            message: 'Enter the member\'s name:',
+            name: 'memberName',
         },
         {
             type: 'input',
-            message: 'Enter the ' + role + '\'s employee ID:',
-            name: 'empId',
+            message: 'Enter the member\'s employee ID:',
+            name: 'id',
         },
         {
             type: 'input',
-            message: 'Enter the ' + role + '\'s email address:',
+            message: 'Enter the member\'s email address:',
             name: 'email',
         }
     ],
-    managerPrompts: [
+    manager: [
         {
             type: 'input',
-            message: 'Enter the ' + role + '\'s office number:',
-            name: 'officeNum',
+            message: 'Enter the member\'s office number:',
+            name: 'office',
         }
     ],
-    engineerPrompts: [
+    engineer: [
         {
             type: 'input',
-            message: 'Enter the ' + role + '\'s github username:',
+            message: 'Enter the member\'s github username:',
             name: 'github',
         }
     ],
-    internPrompts: [
+    intern: [
         {
             type: 'input',
-            message: 'Enter the name of the ' + role + '\'s school:',
+            message: 'Enter the name of the member\'s school:',
             name: 'school',
         }
     ],
-    continuePrompts: [
+    cont: [
         {
             type: 'list',
             message: 'Select another type of team member to add:',
